@@ -21,8 +21,7 @@ public class SensoresController {
     @RequestMapping(value = "/registrarSensores", method = RequestMethod.POST)
     @ResponseBody
     public void registrarSensores(final @RequestBody Sensores sensores) {
-        LOGGER.info("Datos de sensores recibido: " + sensores.getEstadisticas());
-
+        LOGGER.info("Datos de sensores recibido: " + sensores);
         service.registrarSensor(sensores);
     }
 
