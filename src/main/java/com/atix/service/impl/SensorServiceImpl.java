@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.DoubleSummaryStatistics;
 import java.util.LinkedList;
+import java.util.Properties;
 import java.util.Queue;
 import java.util.logging.Logger;
 
@@ -18,10 +22,10 @@ public class SensorServiceImpl implements SensorService {
     private static final Queue<Sensores> todosLosSensores = new LinkedList<>();
 
     @Value("${constanteS}")
-    private final static Double constanteS = null;
+    private Double constanteS;
 
     @Value("${constanteM}")
-    private final static Double constanteM = null;
+    private Double constanteM;
 
     @Override
     public void registrarSensor(Sensores sensores) {
@@ -30,6 +34,7 @@ public class SensorServiceImpl implements SensorService {
 
     @Override
     public void procesarEstadisticasTotales() {
+
         // Guardamos el tamanio antes para que si mientras se esta agregando datos nuevos no los tome.
         final int sizeQueue = todosLosSensores.size();
         for (int i = 0; i < sizeQueue; i++) {

@@ -3,13 +3,8 @@ package com.atix.controller;
 import com.atix.sensores.Sensores;
 import com.atix.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.DoubleSummaryStatistics;
-import java.util.LinkedList;
-import java.util.NoSuchElementException;
-import java.util.Queue;
 import java.util.logging.Logger;
 
 import static java.util.logging.Logger.GLOBAL_LOGGER_NAME;
