@@ -36,16 +36,10 @@ public class SensorServiceImpl implements SensorService {
     public void procesarEstadisticasTotales() {
         // Guardamos el tamanio antes para que si mientras se esta agregando datos nuevos no los tome.
         final int sizeQueue = todosLosSensores.size();
+
         for (int i = 0; i < sizeQueue; i++) {
             final DoubleSummaryStatistics estadisticas = getEstadisticas();
-            LOGGER.info("Datos de sensores procesados: " + estadisticas);
-
-            if (hayErrorEntreMaxYMin(estadisticas)) {
-                LOGGER.warning("La diferencia entre el maximo: " + estadisticas.getMax() + " y el minimo: " + estadisticas.getMin() + " supera " + constanteS);
-            }
-            if (hayErrorEnPromedio(estadisticas)) {
-                LOGGER.warning("El promedio: " + estadisticas.getAverage() + " supera " + constanteM);
-            }
+            analizarErrores(estadisticas);
         }
 
         LOGGER.info("Todos los datos se procesaron");
@@ -53,6 +47,17 @@ public class SensorServiceImpl implements SensorService {
 
     private DoubleSummaryStatistics getEstadisticas() {
         return todosLosSensores.remove().getEstadisticas();
+    }
+
+    private void analizarErrores(DoubleSummaryStatistics estadisticas) {
+        LOGGER.info("Datos de sensores procesados: " + estadisticas);
+
+        if (hayErrorEntreMaxYMin(estadisticas)) {
+            LOGGER.warning("La diferencia entre el maximo: " + estadisticas.getMax() + " y el minimo: " + estadisticas.getMin() + " supera " + constanteS);
+        }
+        if (hayErrorEnPromedio(estadisticas)) {
+            LOGGER.warning("El promedio: " + estadisticas.getAverage() + " supera " + constanteM);
+        }
     }
 
     private boolean hayErrorEntreMaxYMin(final DoubleSummaryStatistics estadisticas) {
