@@ -3,15 +3,10 @@ package com.atix.service.impl;
 import com.atix.sensores.Sensores;
 import com.atix.service.SensorService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.DoubleSummaryStatistics;
 import java.util.LinkedList;
-import java.util.Properties;
 import java.util.Queue;
 import java.util.logging.Logger;
 
@@ -29,6 +24,7 @@ public class SensorServiceImpl implements SensorService {
 
     @Override
     public void registrarSensor(Sensores sensores) {
+        LOGGER.info("Datos de sensores recibido: " + sensores);
         todosLosSensores.add(sensores);
     }
 
@@ -49,7 +45,7 @@ public class SensorServiceImpl implements SensorService {
         return todosLosSensores.remove().getEstadisticas();
     }
 
-    private void analizarErrores(DoubleSummaryStatistics estadisticas) {
+    public void analizarErrores(DoubleSummaryStatistics estadisticas) {
         LOGGER.info("Datos de sensores procesados: " + estadisticas);
 
         if (hayErrorEntreMaxYMin(estadisticas)) {
@@ -60,11 +56,11 @@ public class SensorServiceImpl implements SensorService {
         }
     }
 
-    private boolean hayErrorEntreMaxYMin(final DoubleSummaryStatistics estadisticas) {
+    public boolean hayErrorEntreMaxYMin(final DoubleSummaryStatistics estadisticas) {
         return estadisticas.getMax() - estadisticas.getMin() > constanteS;
     }
 
-    private boolean hayErrorEnPromedio(final DoubleSummaryStatistics estadisticas) {
+    public boolean hayErrorEnPromedio(final DoubleSummaryStatistics estadisticas) {
         return estadisticas.getAverage() > constanteM;
     }
 }

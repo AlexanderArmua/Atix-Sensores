@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import java.util.logging.Logger;
 
 @Component
-@EnableAsync
 public class ProcesarSensores {
     private final static Logger LOGGER = Logger.getLogger(SensorServiceImpl.class.getName());
 

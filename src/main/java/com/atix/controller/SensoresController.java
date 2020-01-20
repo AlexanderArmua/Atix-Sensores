@@ -15,19 +15,16 @@ public class SensoresController {
     @Autowired
     private SensorService service;
 
-    private static final Logger LOGGER = Logger.getLogger(GLOBAL_LOGGER_NAME);
-
     // En una aplicacion productiva hubiera puesto un token de validacion
     @RequestMapping(value = "/registrarSensores", method = RequestMethod.POST)
     @ResponseBody
     public void registrarSensores(final @RequestBody Sensores sensores) {
-        LOGGER.info("Datos de sensores recibido: " + sensores);
         service.registrarSensor(sensores);
     }
 
-    @RequestMapping(value = "/getEstadisticas", method = RequestMethod.GET)
-    @ResponseBody
-    private void estadisticas() {
-            service.procesarEstadisticasTotales();
-    }
+//    @RequestMapping(value = "/getEstadisticas", method = RequestMethod.GET)
+//    @ResponseBody
+//    private void estadisticas() {
+//        service.procesarEstadisticasTotales();
+//    }
 }
