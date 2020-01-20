@@ -45,22 +45,25 @@ public class SensorServiceImpl implements SensorService {
         return todosLosSensores.remove().getEstadisticas();
     }
 
+    @Override
     public void analizarErrores(DoubleSummaryStatistics estadisticas) {
         LOGGER.info("Datos de sensores procesados: " + estadisticas);
 
-        if (hayErrorEntreMaxYMin(estadisticas)) {
+        if (hayErrorEntreMaxYMin(estadisticas, constanteS)) {
             LOGGER.warning("La diferencia entre el maximo: " + estadisticas.getMax() + " y el minimo: " + estadisticas.getMin() + " supera " + constanteS);
         }
-        if (hayErrorEnPromedio(estadisticas)) {
+        if (hayErrorEnPromedio(estadisticas, constanteM)) {
             LOGGER.warning("El promedio: " + estadisticas.getAverage() + " supera " + constanteM);
         }
     }
 
-    public boolean hayErrorEntreMaxYMin(final DoubleSummaryStatistics estadisticas) {
+    @Override
+    public boolean hayErrorEntreMaxYMin(final DoubleSummaryStatistics estadisticas, final Double constanteS) {
         return estadisticas.getMax() - estadisticas.getMin() > constanteS;
     }
 
-    public boolean hayErrorEnPromedio(final DoubleSummaryStatistics estadisticas) {
+    @Override
+    public boolean hayErrorEnPromedio(final DoubleSummaryStatistics estadisticas, final Double constanteM) {
         return estadisticas.getAverage() > constanteM;
     }
 }
