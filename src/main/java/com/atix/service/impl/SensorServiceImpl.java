@@ -8,13 +8,14 @@ import org.springframework.stereotype.Service;
 import java.util.DoubleSummaryStatistics;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Logger;
 
 @Service
 public class SensorServiceImpl implements SensorService {
 
     private final static Logger LOGGER = Logger.getLogger(SensorServiceImpl.class.getName());
-    private static final Queue<Sensores> todosLosSensores = new LinkedList<>();
+    private static final Queue<Sensores> todosLosSensores = new ConcurrentLinkedQueue<>();
 
     @Value("${constanteS}")
     private Double constanteS;

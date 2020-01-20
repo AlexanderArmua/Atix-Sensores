@@ -5,10 +5,6 @@ import com.atix.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.logging.Logger;
-
-import static java.util.logging.Logger.GLOBAL_LOGGER_NAME;
-
 @RestController
 public class SensoresController {
 

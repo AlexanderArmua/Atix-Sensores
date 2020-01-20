@@ -30,7 +30,7 @@ class SensorServiceImplTest {
         DoubleSummaryStatistics statistics = sensores.getEstadisticas();
         boolean errorMaximoYMin = service.hayErrorEntreMaxYMin(statistics, 10d);
 
-        assertEquals(true, errorMaximoYMin, "Debe haber errores entre el maximo y el minimo");
+        assertTrue(errorMaximoYMin, "Debe haber errores entre el maximo y el minimo");
     }
 
     @Test
@@ -43,6 +43,6 @@ class SensorServiceImplTest {
         DoubleSummaryStatistics statistics = sensores.getEstadisticas();
         boolean errorEnPromedio = service.hayErrorEnPromedio(statistics, 10d);
 
-        assertEquals(true, errorEnPromedio, "El promedio excede el constante");
+        assertTrue(errorEnPromedio, "El promedio excede el constante");
     }
 }
